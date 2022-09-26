@@ -212,6 +212,24 @@ class UsuarioController extends Controller
         return response()->json($response, 200);
     }
 
+    public function eliminarUsuariosRolesId(Request $request) {
+        $model = new UsuarioRol();
+
+        try {
+            $db = $model->eliminar_usuarios_roles_by_id($request);
+
+            if ($db) {
+                $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
+                $response = json_decode($response);
+
+                return response()->json($response, 200);
+            }
+        }
+        catch (Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
+        }
+    }
+
     // public function getAuthenticatedUser() {
     //     try {
     //         if (!$user = JWTAuth::parseToken()->authenticate()) {

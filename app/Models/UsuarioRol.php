@@ -45,4 +45,10 @@ class UsuarioRol extends Model
 
         return $db;
     }
+
+    public function eliminar_usuarios_roles_by_id(Request $request) {
+        $db = DB::select("exec pr_eliminar_usuarios_roles_by_id ?", array($request->input('usuario_rol_id')));
+
+        return $db;
+    }
 }

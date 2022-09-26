@@ -183,6 +183,7 @@ Route::post('/usuario/crearUsuarioRol', [UsuarioController::class, 'crearUsuario
 Route::post('/usuario/actualizarUsuarioRol', [UsuarioController::class, 'actualizarUsuarioRol']);
 Route::post('/usuario/getUsuariosRolesById', [UsuarioController::class, 'getUsuariosRolesById']);
 Route::post('/usuario/getPermisosByUser', [UsuarioController::class, 'getPermisosByUser']);
+Route::post('/usuario/eliminarUsuariosRolesId', [UsuarioController::class, 'eliminarUsuariosRolesId']);
 Route::get('/usuario/getRolPrivilegiosPantalla', [UsuarioController::class, 'getRolPrivilegiosPantalla']);
 
 // Usuarios-Menu
