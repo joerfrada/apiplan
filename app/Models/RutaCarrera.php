@@ -20,7 +20,7 @@ class RutaCarrera extends Model
     ];
 
     public function crud_ruta_carrera(Request $request, $evento) {
-        $db = DB::select("exec pr_crud_app_ruta_carrera ?,?,?,?,?,?,?,?,?,?,?,?",
+        $db = DB::select("exec pr_crud_app_ruta_carrera ?,?,?,?,?,?,?,?,?,?,?,?,?,?",
                         [
                             $evento,
                             $request->input('ruta_carrera_id'),
@@ -28,6 +28,8 @@ class RutaCarrera extends Model
                             $request->input('cuerpo'),
                             $request->input('especialidad_id'),
                             $request->input('especialidad'),
+                            $request->input('area_id'),
+                            $request->input('area'),
                             $request->input('descripcion'),
                             $request->input('tipo_categoria_id'),
                             $request->input('tipo_ruta_id'),
