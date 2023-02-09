@@ -309,6 +309,24 @@ class CargoController extends Controller
         }
     }
 
+    public function eliminarCargosExperienciasId(Request $request) {
+        $model = new CargoExperiencia();
+
+        try {
+            $db = $model->eliminar_cargos_experiencias_by_id($request);
+
+            if ($db) {
+                $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
+                $response = json_decode($response);
+
+                return response()->json($response, 200);
+            }
+        }
+        catch (Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
+        }
+    }
+
     public function getUbicacionCargosId(Request $request) {
         $model = new UbicacionCargo();
 
@@ -348,6 +366,24 @@ class CargoController extends Controller
 
             if ($db) {
                 $response = json_encode(array('mensaje' => 'Fue actualizado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
+                $response = json_decode($response);
+
+                return response()->json($response, 200);
+            }
+        }
+        catch (Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
+        }
+    }
+
+    public function eliminarUbicacionCargosId(Request $request) {
+        $model = new UbicacionCargo();
+
+        try {
+            $db = $model->eliminar_ubicacion_cargos_by_id($request);
+
+            if ($db) {
+                $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
                 $response = json_decode($response);
 
                 return response()->json($response, 200);

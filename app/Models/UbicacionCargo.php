@@ -43,4 +43,9 @@ class UbicacionCargo extends Model
                         ]);
         return $db;
     }
+
+    public function eliminar_ubicacion_cargos_by_id(Request $request) {
+        $db = DB::select('exec pr_eliminar_ubicacion_cargos_by_id ?', array($request->input('ubicacion_cargo_id')));
+        return $db;
+    }
 }

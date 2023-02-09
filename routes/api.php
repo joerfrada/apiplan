@@ -67,11 +67,13 @@ Route::post('/cargo/actualizarCargosConfiguracion', [CargoController::class, 'ac
 Route::post('/cargo/getCargosExperienciasById', [CargoController::class, 'getCargosExperienciasById']);
 Route::post('/cargo/crearCargosExperiencias', [CargoController::class, 'crearCargosExperiencias']);
 Route::post('/cargo/actualizarCargosExperiencias', [CargoController::class, 'actualizarCargosExperiencias']);
+Route::post('/cargo/eliminarCargosExperienciasId', [CargoController::class, 'eliminarCargosExperienciasId']);
 
 // Ubicacion de Cargos
 Route::post('/cargo/getUbicacionCargosId', [CargoController::class, 'getUbicacionCargosId']);
 Route::post('/cargo/crearUbicacionCargos', [CargoController::class, 'crearUbicacionCargos']);
 Route::post('/cargo/actualizarUbicacionCargos', [CargoController::class, 'actualizarUbicacionCargos']);
+Route::post('/cargo/eliminarUbicacionCargosId', [CargoController::class, 'eliminarUbicacionCargosId']);
 
 // Areas
 Route::get('/area/getAreasFull',[AreaController::class, 'getAreasFull']);

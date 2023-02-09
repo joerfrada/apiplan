@@ -38,4 +38,9 @@ class CargoExperiencia extends Model
         $db = DB::select("exec pr_get_app_cargos_experiencias_by_id ?", array($request->input('cargo_configuracion_id')));
         return $db;
     }
+
+    public function eliminar_cargos_experiencias_by_id(Request $request) {
+        $db = DB::select("exec pr_eliminar_cargos_experiencias_by_id ?", array($request->input('cargo_experiencia_id')));
+        return $db;
+    }
 }
