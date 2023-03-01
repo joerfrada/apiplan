@@ -393,4 +393,15 @@ class CargoController extends Controller
             return response()->json(array('tipo' => -1, 'mensaje' => $e));
         }
     }
+
+    public function getListasNiveles() {
+        $model = new Cargo();
+
+        $datos = $model->get_listas_niveles();
+
+        $response = json_encode(array('result' => $datos, 'tipo' => 0), JSON_NUMERIC_CHECK);
+        $response = json_decode($response);
+
+        return response()->json($response, 200);
+    }
 }

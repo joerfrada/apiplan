@@ -50,6 +50,7 @@ Route::post('/cargo/crearCargos', [CargoController::class, 'crearCargos']);
 Route::post('/cargo/actualizarCargos', [CargoController::class, 'actualizarCargos']);
 Route::post('/cargo/getDetalleCargos', [CargoController::class, 'getDetalleCargos']);
 Route::get('/cargo/getCargosFull', [CargoController::class, 'getCargosFull']);
+Route::get('/cargo/getListasNiveles', [CargoController::class, 'getListasNiveles']);
 
 // Cargos Grado
 Route::post('/cargo/getCargosGradosByCargoId', [CargoController::class, 'getCargosGradosByCargoId']);

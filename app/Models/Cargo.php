@@ -59,4 +59,9 @@ class Cargo extends Model
         $db = DB::select('exec pr_get_cargos_by_id ?', array($request->input('cargo_id')));
         return $db;
     }
+
+    public function get_listas_niveles() {
+        $db = DB::select("exec pr_get_listas_niveles");
+        return $db;
+    }
 }
