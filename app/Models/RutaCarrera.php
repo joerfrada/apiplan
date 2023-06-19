@@ -83,7 +83,7 @@ class RutaCarrera extends Model
     }
 
     public function get_grados_detalle_by_especialidad(Request $request) {
-        $db = DB::select("exec pr_get_grados_detalle_piramide_by_especialidad ?,?", array($request->input('especialidad_id'), $request->input('tipo_ruta_id')));
+        $db = DB::select("exec pr_get_grados_detalle_piramide_by_especialidad ?,?,?", array($request->input('especialidad_id'), $request->input('tipo_ruta_id'), $request->input('ruta_carrera_id')));
         return $db;
     }
 
