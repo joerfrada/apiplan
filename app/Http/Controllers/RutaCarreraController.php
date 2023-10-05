@@ -123,6 +123,16 @@ class RutaCarreraController extends Controller
         }
     }
 
+    public function eliminarRuta(Request $request) {
+        $r = Ruta::find($request->get('ruta_id'));
+        $r->delete();
+        
+        $response = json_encode(array('mensaje' => 'Ha eliminado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
+        $response = json_decode($response);
+
+        return response()->json($response, 200);
+    }
+
     public function getRutasByRutaCarrera(Request $request) {
         $rc_model = new RutaCarrera();
         $r_model = new Ruta(); 

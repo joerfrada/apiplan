@@ -151,6 +151,7 @@ Route::post('/rutacarrera/getLineasCargos', [RutaCarreraController::class, 'getL
 Route::post('/rutacarrera/getRutas', [RutaCarreraController::class, 'getRutas']);
 Route::post('/rutacarrera/crearRutas', [RutaCarreraController::class, 'crearRutas']);
 Route::post('/rutacarrera/actualizarRutas', [RutaCarreraController::class, 'actualizarRutas']);
+Route::post('/rutacarrera/eliminarRuta', [RutaCarreraController::class, 'eliminarRuta']);
 Route::post('/rutacarrera/getRutasByRutaCarrera', [RutaCarreraController::class, 'getRutasByRutaCarrera']);
 Route::post('/rutacarrera/getCargosByRutas', [RutaCarreraController::class, 'getCargosByRutas']);
 Route::post('/rutacarrera/getGradosByEspecialidad', [RutaCarreraController::class, 'getGradosByEspecialidad']);
