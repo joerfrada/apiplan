@@ -19,35 +19,18 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'usuario_id';
 
     protected $fillable = [
-        'usuario,activo,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion'
+        'usuario,nombre_completo,activo,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion'
     ];
 
-    public function checkLogin($username, $password) {
-        $host = "MSSQLSERVERBD";
-        $dbname = "FAC_PLAN_CARRERA";
-        $port = 5001;
-
-        try {
-            $conn = new PDO("sqlsrv:server=$host,$port;database=$dbname", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-            $conn->setAttribute(PDO::SQLSRV_ATTR_QUERY_TIMEOUT, 1);
-
-            if ($conn != null) return true;
-        }
-        catch (PDOException $e) {
-            return false;
-        }
-    }
+    public $timestamps = false;
 
     public function crud_usuarios(Request $request, $evento) {
-        $db = DB::select("exec pr_crud_app_usuarios ?,?,?,?,?,?,?,?,?",
+        $db = DB::select("exec pr_crud_app_usuarios ?,?,?,?,?,?,?",
                         [
                             $evento,
                             $request->input('usuario_id'),
                             $request->input('usuario'),
-                            $request->input('nombres'),
-                            $request->input('apellidos'),
-                            $request->input('num_identificacion'),
+                            $request->input('nombre_completo'),
                             $request->input('activo') == true ? 'S' : 'N',
                             $request->input('usuario_creador'),
                             $request->input('usuario_modificador')
@@ -86,8 +69,13 @@ class Usuario extends Authenticatable
         $db = DB::select("exec pr_get_permisos_by_usuario ?,?",
                         [
                             $request->input('usuario'),
-                            $request->input('url')
+                            $request->input('cod_modulo')
                         ]);
+        return $db;
+    }
+
+    public function get_roles_by_usuario_id(Request $request) {
+        $db = DB::select('exec pr_get_usuarios_roles_by_usuario_id ?', array($request->get('usuario_id')));
         return $db;
     }
 }

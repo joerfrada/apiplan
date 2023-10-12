@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\CuerpoController;
@@ -31,12 +32,8 @@ use App\Http\Controllers\UsuarioMenuController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 // Login
-Route::post('/login', [UsuarioController::class, 'login']);
+Route::post('login', [LoginController::class, 'login'])->name('login');
 
 // Listas Dinamicas
 Route::get('/listadinamica/getListasDinamicasFull',[ListaDinamicaController::class, 'getListasDinamicasFull']);
@@ -166,6 +163,7 @@ Route::get('/rutacarrera/getCuerposEspecialidadesAreasRutaCarrera', [RutaCarrera
 Route::get('/rutacarrera/getEspecialidadesRutas', [RutaCarreraController::class, 'getEspecialidadesRutas']);
 Route::get('/rutacarrera/getRutasFull', [RutaCarreraController::class, 'getRutasFull']);
 Route::get('/rutacarrera/getRutaCarreraActivos', [RutaCarreraController::class, 'getRutaCarreraActivos']);
+Route::post('/rutacarrera/getWidthByRutas', [RutaCarreraController::class, 'getWidthByRutas']);
 
 // Roles
 Route::post('/rol/getRoles', [RolController::class, 'getRoles']);
@@ -189,6 +187,7 @@ Route::post('/usuario/getUsuariosRolesById', [UsuarioController::class, 'getUsua
 Route::post('/usuario/getPermisosByUser', [UsuarioController::class, 'getPermisosByUser']);
 Route::post('/usuario/eliminarUsuariosRolesId', [UsuarioController::class, 'eliminarUsuariosRolesId']);
 Route::get('/usuario/getRolPrivilegiosPantalla', [UsuarioController::class, 'getRolPrivilegiosPantalla']);
+Route::post('/usuario/getRolesByUsuarioId', [UsuarioController::class, 'getRolesByUsuarioId']);
 
 // Usuarios-Menu
 Route::post('/usuariomenu/crudAsignarMenus', [UsuarioMenuController::class, 'crudAsignarMenus']);

@@ -115,4 +115,10 @@ class RutaCarrera extends Model
         $db = DB::select('exec pr_get_ruta_carrera_activos');
         return $db;
     }
+
+    public function get_width_by_rutas(Request $request) {
+        $db = DB::select('exec pr_get_width_by_rutas ?', array($request->input('ruta_carrera_id')));
+
+        return $db;
+    }
 }

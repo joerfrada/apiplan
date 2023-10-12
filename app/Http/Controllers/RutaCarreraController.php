@@ -341,4 +341,15 @@ class RutaCarreraController extends Controller
 
         return response()->json($response, 200);
     }
+
+    public function getWidthByRutas(Request $request) {
+        $model = new RutaCarrera();
+
+        $datos = $model->get_width_by_rutas($request);
+
+        $response = json_encode(array('result' => $datos, 'tipo' => 0), JSON_NUMERIC_CHECK);
+        $response = json_decode($response);
+
+        return response()->json($response, 200);
+    }
 }

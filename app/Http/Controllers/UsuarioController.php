@@ -17,69 +17,69 @@ use App\Models\UsuarioRol;
 
 class UsuarioController extends Controller
 {
-    public function login(Request $request) {
-        $p_usuario = $request->get('usuario');
-        $p_password = $request->get('password');
+    // public function login(Request $request) {
+    //     $p_usuario = $request->get('usuario');
+    //     $p_password = $request->get('password');
         
-        $m_usuario = new Usuario();
+    //     $m_usuario = new Usuario();
 
-        // $users = $m_usuario->checkLogin($p_usuario, $p_password);
+    //     // $users = $m_usuario->checkLogin($p_usuario, $p_password);
 
-        // if ($users == true) {
-        //     $response = json_encode(array('mensaje' => 'Conectado!', 'tipo' => 0), JSON_NUMERIC_CHECK);
-        //     $response = json_decode($response);
+    //     // if ($users == true) {
+    //     //     $response = json_encode(array('mensaje' => 'Conectado!', 'tipo' => 0), JSON_NUMERIC_CHECK);
+    //     //     $response = json_decode($response);
 
-        //     return response()->json($response, 200);
-        // }
-        // else {
-        //     $response = json_encode(array('mensaje' => 'Error!', 'tipo' => -1), JSON_NUMERIC_CHECK);
-        //     $response = json_decode($response);
+    //     //     return response()->json($response, 200);
+    //     // }
+    //     // else {
+    //     //     $response = json_encode(array('mensaje' => 'Error!', 'tipo' => -1), JSON_NUMERIC_CHECK);
+    //     //     $response = json_decode($response);
 
-        //     return response()->json($response, 200);
-        // }
+    //     //     return response()->json($response, 200);
+    //     // }
 
-        try {
-            $users = DB::table('tb_app_usuarios')->where('usuario', $p_usuario)->get();
+    //     try {
+    //         $users = DB::table('tb_app_usuarios')->where('usuario', $p_usuario)->get();
 
-            if (!$users->isEmpty()) {
-                $usuario = $m_usuario->getLoginUsuario($p_usuario);
+    //         if (!$users->isEmpty()) {
+    //             $usuario = $m_usuario->getLoginUsuario($p_usuario);
 
-                $m_menu = new Menu();
-                $m_usuariomenu = new UsuarioMenu();
+    //             $m_menu = new Menu();
+    //             $m_usuariomenu = new UsuarioMenu();
 
-                $data = array();
-                foreach ($usuario as $row) {
-                    $tmp = array();
-                    $tmp['usuario_id'] = $row->usuario_id;
-                    $tmp['usuario'] = $row->usuario;
-                    $tmp['nombre_completo'] = $row->nombre_completo;
-                    // $tmp['avatar'] = $row->avatar;
-                    // $tmp['correo_electronico'] = $row->correo_electronico;
-                    // $tmp['tipo_perfil'] = $row->tipo_perfil;
-                    $tmp['menus'] = $m_menu->get_menu_id($m_usuariomenu->getUsuarioMenu($row->usuario_id));
+    //             $data = array();
+    //             foreach ($usuario as $row) {
+    //                 $tmp = array();
+    //                 $tmp['usuario_id'] = $row->usuario_id;
+    //                 $tmp['usuario'] = $row->usuario;
+    //                 $tmp['nombre_completo'] = $row->nombre_completo;
+    //                 // $tmp['avatar'] = $row->avatar;
+    //                 // $tmp['correo_electronico'] = $row->correo_electronico;
+    //                 // $tmp['tipo_perfil'] = $row->tipo_perfil;
+    //                 $tmp['menus'] = $m_menu->get_menu_id($m_usuariomenu->getUsuarioMenu($row->usuario_id));
 
-                    array_push($data, $tmp);
-                }
+    //                 array_push($data, $tmp);
+    //             }
 
-                $user = Usuario::first();
-                // JWTAuth::factory()->setTTL(30);
-                // $token = JWTAuth::fromUser($user);
+    //             $user = Usuario::first();
+    //             // JWTAuth::factory()->setTTL(30);
+    //             // $token = JWTAuth::fromUser($user);
 
-                $response = json_encode(array('result' => $data), JSON_NUMERIC_CHECK);
-                $response = json_decode($response);
-                // return response()->json(array('user' => $response, 'tipo' => 0, 'token' => $token));
-                return response()->json(array('user' => $response, 'tipo' => 0));
-            }
-        }
-        catch (\PDOException $e) {
-            if ($e->getCode() == "08001") {
-                return response()->json(array('tipo' => -1, 'mensaje' => "No se puede conectar a la base de datos. Contactar al administrador."));
-            }
-            else {
-                return response()->json(array('tipo' => -1, 'mensaje' => "El usuario no existe, vuelve a ingresar."));
-            }
-        }
-    }
+    //             $response = json_encode(array('result' => $data), JSON_NUMERIC_CHECK);
+    //             $response = json_decode($response);
+    //             // return response()->json(array('user' => $response, 'tipo' => 0, 'token' => $token));
+    //             return response()->json(array('user' => $response, 'tipo' => 0));
+    //         }
+    //     }
+    //     catch (\PDOException $e) {
+    //         if ($e->getCode() == "08001") {
+    //             return response()->json(array('tipo' => -1, 'mensaje' => "No se puede conectar a la base de datos. Contactar al administrador."));
+    //         }
+    //         else {
+    //             return response()->json(array('tipo' => -1, 'mensaje' => "El usuario no existe, vuelve a ingresar."));
+    //         }
+    //     }
+    // }
 
     public function getUsuarios(Request $request) {
         $model = new Usuario();
@@ -228,6 +228,17 @@ class UsuarioController extends Controller
         catch (Exception $e) {
             return response()->json(array('tipo' => -1, 'mensaje' => $e));
         }
+    }
+
+    public function getRolesByUsuarioId(Request $request) {
+        $model = new Usuario();
+
+        $datos = $model->get_roles_by_usuario_id($request);
+
+        $response = json_encode(array('result' => $datos, 'tipo' => 0), JSON_NUMERIC_CHECK);
+        $response = json_decode($response);
+
+        return response()->json($response, 200);
     }
 
     // public function getAuthenticatedUser() {

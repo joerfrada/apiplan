@@ -32,8 +32,8 @@ class UsuarioMenu extends Model
         return $db;
     }
 
-    public function getUsuarioMenu($usuario_id) {
-        $db = DB::select("exec pr_get_app_usuarios_menu_id ?", array($usuario_id));
+    public function getUsuarioMenu($usuario_id, $opc) {
+        $db = DB::select("exec pr_get_app_usuarios_menu_id ?,?", array($usuario_id, $opc));
 
         return $db;
     }

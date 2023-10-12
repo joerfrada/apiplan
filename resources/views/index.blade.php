@@ -56,7 +56,7 @@
     <img src="images/fac_logo.png">
     <hr>
     <div class="footer">
-        <p>© {{ now()->year }} - Plan de Carrera - Fuerza Aérea Colombiana</p>
+        <p>© {{ now()->year }} - Plan de Carrera - Fuerza Aeroespacial Colombiana</p>
     </div>
 </div>
 </body>
