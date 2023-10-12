@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 use App\Models\Usuario;
+use App\Models\UsuarioRol;
+use App\Models\UsuarioMenu;
 
 class Saml2LoginListener
 {
@@ -46,6 +48,33 @@ class Saml2LoginListener
             $user->usuario_creador = 'admin';
             $user->fecha_creacion = \DB::raw('GETDATE()');
             $user->save();
+
+            if ($user->usuario_id != 0) {
+                $urol = new UsuarioRol;
+                $urol->usuario_id = $user->usuario_id;
+                $urol->rol_id = 4;
+                $urol->rol_privilegio_id = 5;
+                $urol->activo = 'S';
+                $urol->usuario_creador = 'admin';
+                $urol->fecha_creacion = \DB::raw('GETDATE()');
+                $urol->save();
+
+                $urol = new UsuarioRol;
+                $urol->usuario_id = $user->usuario_id;
+                $urol->rol_id = 5;
+                $urol->rol_privilegio_id = 6;
+                $urol->activo = 'S';
+                $urol->usuario_creador = 'admin';
+                $urol->fecha_creacion = \DB::raw('GETDATE()');
+                $urol->save();
+
+                $umenu = new UsuarioMenu;
+                $umenu->usuario_id = $user->usuario_id;
+                $umenu->menu_id = '1,5,6,10,12';
+                $umenu->usuario_creador = 'admin';
+                $umenu->fecha_creacion = \DB::raw('GETDATE()');
+                $umenu->save();
+            }
         }
 
         session(['nameId' => $userData['nameId']]);

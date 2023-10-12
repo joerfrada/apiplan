@@ -19,6 +19,8 @@ class UsuarioMenu extends Model
         'usuario_id,menu_id,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion'
     ];
 
+    public $timestamps = false;
+
     public function crud_usuarios_menu(Request $request, $evento) {
         $db = DB::select("exec pr_crud_app_usuarios_menu ?,?,?,?,?,?",
                         [

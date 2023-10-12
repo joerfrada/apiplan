@@ -19,6 +19,8 @@ class UsuarioRol extends Model
         "usuario_rol_id,usuario_id,rol_id,activo,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion"
     ];
 
+    public $timestamps = false;
+
     public function crud_usuarios_roles(Request $request, $evento) {
         $db = DB::select("exec pr_crud_app_usuarios_roles ?,?,?,?,?,?,?,?",
                         [

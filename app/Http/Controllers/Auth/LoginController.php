@@ -13,8 +13,8 @@ use App\Models\UsuarioMenu;
 class LoginController extends Controller
 {
     public function saml() {
-        // $url = "http://localhost:4200";
-        $url = 'https://plancarrera.fac.mil.co/';
+        $url = "http://localhost:4200";
+        // $url = 'https://plancarrera.fac.mil.co';
 
         if (\Auth::guest()) {
             try {
@@ -81,8 +81,8 @@ class LoginController extends Controller
     }
 
     public function logout() {
-        // $url = "http://localhost:4200";
-        $url = 'https://plancarrera.fac.mil.co';
+        $url = "http://localhost:4200";
+        // $url = 'https://plancarrera.fac.mil.co';
 
         // recover sessionIndex and nameId from session
         $nameId = session('nameId');
