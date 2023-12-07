@@ -25,12 +25,13 @@ class Usuario extends Authenticatable
     public $timestamps = false;
 
     public function crud_usuarios(Request $request, $evento) {
-        $db = DB::select("exec pr_crud_app_usuarios ?,?,?,?,?,?,?",
+        $db = DB::select("exec pr_crud_app_usuarios ?,?,?,?,?,?,?,?",
                         [
                             $evento,
                             $request->input('usuario_id'),
                             $request->input('usuario'),
                             $request->input('nombre_completo'),
+                            $request->input('email'),
                             $request->input('activo') == true ? 'S' : 'N',
                             $request->input('usuario_creador'),
                             $request->input('usuario_modificador')

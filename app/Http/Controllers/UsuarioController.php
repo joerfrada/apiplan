@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use JWTAuth;
-use JWTFactory;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Hash;
 use Log;
 
 use App\Models\Menu;
@@ -17,69 +13,51 @@ use App\Models\UsuarioRol;
 
 class UsuarioController extends Controller
 {
-    // public function login(Request $request) {
-    //     $p_usuario = $request->get('usuario');
-    //     $p_password = $request->get('password');
+    public function login(Request $request) {
+        $p_usuario = $request->get('usuario');
+        $p_password = $request->get('password');
         
-    //     $m_usuario = new Usuario();
+        try {
+            if ($p_password != null) {
+                $existe_usuario = Usuario::where('usuario', $p_usuario)->first();
 
-    //     // $users = $m_usuario->checkLogin($p_usuario, $p_password);
+                if ($existe_usuario) {
+                    $user = $existe_usuario;
 
-    //     // if ($users == true) {
-    //     //     $response = json_encode(array('mensaje' => 'Conectado!', 'tipo' => 0), JSON_NUMERIC_CHECK);
-    //     //     $response = json_decode($response);
+                    if ($user->activo == 'S') {
+                        $m_menu = new Menu;
+                        $m_usuariomenu = new UsuarioMenu;
 
-    //     //     return response()->json($response, 200);
-    //     // }
-    //     // else {
-    //     //     $response = json_encode(array('mensaje' => 'Error!', 'tipo' => -1), JSON_NUMERIC_CHECK);
-    //     //     $response = json_decode($response);
+                        if (\DB::select('select * from vw_usuarios_roles_privilegios where usuario_id = :id', array('id' => $user->usuario_id)) != null) {
+                            $opc = 1;
+                        }
+                        else {
+                            $opc = 2;
+                        }
 
-    //     //     return response()->json($response, 200);
-    //     // }
+                        $data = array();
+                        $data['usuario_id'] = $user->usuario_id;
+                        $data['usuario'] = $user->usuario;
+                        $data['nombre_completo'] = $user->nombre_completo;
+                        $data['email'] = $user->email;
+                        $data['menus'] = $m_menu->get_menu_id($m_usuariomenu->getUsuarioMenu($user->usuario_id, $opc));
 
-    //     try {
-    //         $users = DB::table('tb_app_usuarios')->where('usuario', $p_usuario)->get();
-
-    //         if (!$users->isEmpty()) {
-    //             $usuario = $m_usuario->getLoginUsuario($p_usuario);
-
-    //             $m_menu = new Menu();
-    //             $m_usuariomenu = new UsuarioMenu();
-
-    //             $data = array();
-    //             foreach ($usuario as $row) {
-    //                 $tmp = array();
-    //                 $tmp['usuario_id'] = $row->usuario_id;
-    //                 $tmp['usuario'] = $row->usuario;
-    //                 $tmp['nombre_completo'] = $row->nombre_completo;
-    //                 // $tmp['avatar'] = $row->avatar;
-    //                 // $tmp['correo_electronico'] = $row->correo_electronico;
-    //                 // $tmp['tipo_perfil'] = $row->tipo_perfil;
-    //                 $tmp['menus'] = $m_menu->get_menu_id($m_usuariomenu->getUsuarioMenu($row->usuario_id));
-
-    //                 array_push($data, $tmp);
-    //             }
-
-    //             $user = Usuario::first();
-    //             // JWTAuth::factory()->setTTL(30);
-    //             // $token = JWTAuth::fromUser($user);
-
-    //             $response = json_encode(array('result' => $data), JSON_NUMERIC_CHECK);
-    //             $response = json_decode($response);
-    //             // return response()->json(array('user' => $response, 'tipo' => 0, 'token' => $token));
-    //             return response()->json(array('user' => $response, 'tipo' => 0));
-    //         }
-    //     }
-    //     catch (\PDOException $e) {
-    //         if ($e->getCode() == "08001") {
-    //             return response()->json(array('tipo' => -1, 'mensaje' => "No se puede conectar a la base de datos. Contactar al administrador."));
-    //         }
-    //         else {
-    //             return response()->json(array('tipo' => -1, 'mensaje' => "El usuario no existe, vuelve a ingresar."));
-    //         }
-    //     }
-    // }
+                        $response = json_encode(array('result' => $data), JSON_NUMERIC_CHECK);
+                        $response = json_decode($response);
+                        return response()->json(array('user' => $response, 'tipo' => 0));
+                    }
+                    else {
+                        return response()->json(array('mensaje' => "El usuario '" . $user->usuario . "' no se encuentra activo.", 'tipo' => -1, 'codigo' => 2));
+                    }
+                }
+            }
+        }
+        catch (\PDOException $e) {
+            if ($e->getCode() == "08001") {
+                return response()->json(array('tipo' => -1, 'mensaje' => "No se puede conectar a la base de datos. Contactar al administrador."));
+            }
+        }
+    }
 
     public function getUsuarios(Request $request) {
         $model = new Usuario();
@@ -240,25 +218,4 @@ class UsuarioController extends Controller
 
         return response()->json($response, 200);
     }
-
-    // public function getAuthenticatedUser() {
-    //     try {
-    //         if (!$user = JWTAuth::parseToken()->authenticate()) {
-    //             return response()->json(['user_not_found'], 404);
-    //         }
-    //     } 
-    //     catch (Exception $e) {
-    //         if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-    //             return response()->json(['tipo' => -1, 'codigo' => 1, 'mensaje' => 'Token no es válido.'], $e->getStatusCode());
-    //         }
-    //         else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-    //             return response()->json(['tipo' => -1, 'codigo' => 2, 'mensaje' => 'La sesión ha expirado. Intente conectarse nuevamente.'], $e->getStatusCode());
-    //         }
-    //         else {
-    //             return response()->json(['tipo' => -1, 'codigo' => 3, 'mensaje' => 'No autorizado'], $e->getStatusCode());
-    //         }
-    //     }
-
-    //     return response()->json(compact('user'));
-    // }
 }
