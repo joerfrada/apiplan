@@ -33,8 +33,8 @@ use App\Http\Controllers\UsuarioMenuController;
 */
 
 // Login
-Route::post('login', [LoginController::class, 'login'])->name('login');
-// Route::post('login', [UsuarioController::class, 'login']);
+// Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [UsuarioController::class, 'login']);
 
 // Listas Dinamicas
 Route::get('/listadinamica/getListasDinamicasFull',[ListaDinamicaController::class, 'getListasDinamicasFull']);

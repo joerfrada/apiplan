@@ -116,19 +116,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($data['ubicacion'] as $item)
+                @forelse($data['ubicacion'] as $item)
                 <tr>
-                    <td>{{ $item->nivel1 }}</td>
-                    <td>{{ $item->nivel2 }}</td>
-                    <td>{{ $item->nivel3 }}</td>
-                    <td>{{ $item->nivel4 }}</td>
-                    <td>{{ $item->nivel5 }}</td>
-                    <td>{{ $item->nivel6 }}</td>
-                    <td>{{ $item->nivel7 }}</td>
+                    <td>{{ $item->nivel1 ?? 'N/A' }}</td>
+                    <td>{{ $item->nivel2 ?? 'N/A' }}</td>
+                    <td>{{ $item->nivel3 ?? 'N/A' }}</td>
+                    <td>{{ $item->nivel4 ?? 'N/A' }}</td>
+                    <td>{{ $item->nivel5 ?? 'N/A' }}</td>
+                    <td>{{ $item->nivel6 ?? 'N/A' }}</td>
+                    <td>{{ $item->nivel7 ?? 'N/A' }}</td>
                     <td>{{ $item->puesto_cantidad }}</td>
-                    <td>{{ $item->cargo_jefe_inmediato }}</td>
+                    <td>{{ $item->cargo_jefe_inmediato ?? 'N/A' }}</td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="9" style="text-align: center">No hay registros</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
         <br />
@@ -141,7 +145,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['cuerpo'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['cuerpo'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
@@ -153,7 +157,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['especialidad'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['especialidad'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
@@ -165,7 +169,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['area'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['area'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
@@ -174,7 +178,7 @@
         <table class="table3">
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['educacion'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['educacion'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
@@ -183,7 +187,7 @@
         <table class="table3">            
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['conocimiento'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['conocimiento'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
@@ -192,7 +196,7 @@
         <table class="table3">            
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['experiencia'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['experiencia'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
@@ -201,12 +205,12 @@
         <table class="table3">
             <tbody>
                 <tr>
-                    <td style="text-align: justify !important">{{ $data['competencia'] }}</td>
+                    <td style="text-align: justify !important">{{ $data['competencia'] ?? 'No hay información' }}</td>
                 </tr>
             </tbody>            
         </table>
         <br />
-        <div class="center"><strong>UBICACIÓN DEL CARGO / PUESTOS DE TRABAJO / JEFE INMEDIATO</div><br />
+        <div class="center"><strong>EXPERIENCIA: CARGOS PREVIOS A DESEMPEÑAR</div><br />
         <table class="table3">
             <thead>
                 <tr>
@@ -216,13 +220,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($data['expCar'] as $item)
+                @forelse($data['expCar'] as $item)
                 <tr>
                     <td style="text-align: center">{{ $item->cargo_previo }}</td>
                     <td style="text-align: center">{{ $item->anio }}</td>
                     <td style="text-align: center">{{ $item->mes }}</td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="3" style="text-align: center">No hay registros</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
         <br />
