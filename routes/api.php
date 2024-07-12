@@ -8,6 +8,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\CuerpoController;
 use App\Http\Controllers\EspecialidadController;
+use App\Http\Controllers\ExcelRutaCarreraController;
 use App\Http\Controllers\GradoController;
 use App\Http\Controllers\ListaDinamicaController;
 use App\Http\Controllers\MenuController;
@@ -33,8 +34,8 @@ use App\Http\Controllers\UsuarioMenuController;
 */
 
 // Login
-// Route::post('login', [LoginController::class, 'login'])->name('login');
-Route::post('login', [UsuarioController::class, 'login']);
+Route::post('login', [LoginController::class, 'login'])->name('login');
+// Route::post('login', [UsuarioController::class, 'login']);
 
 // Listas Dinamicas
 Route::get('/listadinamica/getListasDinamicasFull',[ListaDinamicaController::class, 'getListasDinamicasFull']);
@@ -165,6 +166,7 @@ Route::get('/rutacarrera/getEspecialidadesRutas', [RutaCarreraController::class,
 Route::get('/rutacarrera/getRutasFull', [RutaCarreraController::class, 'getRutasFull']);
 Route::get('/rutacarrera/getRutaCarreraActivos', [RutaCarreraController::class, 'getRutaCarreraActivos']);
 Route::post('/rutacarrera/getWidthByRutas', [RutaCarreraController::class, 'getWidthByRutas']);
+Route::get('/rutacarrera/export', [ExcelRutaCarreraController::class, 'export']);
 
 // Roles
 Route::post('/rol/getRoles', [RolController::class, 'getRoles']);

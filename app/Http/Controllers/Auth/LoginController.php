@@ -13,8 +13,8 @@ use App\Models\UsuarioMenu;
 class LoginController extends Controller
 {
     public function saml() {
-        // $url = "http://localhost:4200";
-        $url = 'https://plancarrera.fac.mil.co';
+        $url = "http://localhost:4200";
+        // $url = 'https://plancarrera.fac.mil.co';
 
         if (\Auth::guest()) {
             try {
@@ -80,9 +80,56 @@ class LoginController extends Controller
         }
     }
 
+    // public function login(Request $request) {
+    //     $p_usuario = $request->get('usuario');
+    //     $password = $request->get('password');
+    //     $opc = 0;
+
+    //     if ($password != null) {
+    //         try {
+    //             $existe_usuario = Usuario::where('usuario', $p_usuario)->first();
+
+    //             if ($existe_usuario) {
+    //                 $user = $existe_usuario;
+
+    //                 if ($user->activo == 'S') {
+    //                     $m_menu = new Menu;
+    //                     $m_usuariomenu = new UsuarioMenu;
+
+    //                     if (\DB::select('select * from vw_usuarios_roles_privilegios where usuario_id = :id', array('id' => $user->usuario_id)) != null) {
+    //                         $opc = 1;
+    //                     }
+    //                     else {
+    //                         $opc = 2;
+    //                     }
+
+    //                     $data = array();
+    //                     $data['usuario_id'] = $user->usuario_id;
+    //                     $data['usuario'] = $user->usuario;
+    //                     $data['nombre_completo'] = $user->nombre_completo;
+    //                     $data['email'] = $user->email;
+    //                     $data['menus'] = $m_menu->get_menu_id($m_usuariomenu->getUsuarioMenu($user->usuario_id, $opc));
+
+    //                     $response = json_encode(array('result' => $data), JSON_NUMERIC_CHECK);
+    //                     $response = json_decode($response);
+    //                     return response()->json(array('user' => $response, 'tipo' => 0));
+    //                 }
+    //                 else {
+    //                     return response()->json(array('mensaje' => "El usuario '" . $user->usuario . "' no se encuentra activo.", 'tipo' => -1, 'codigo' => 2));
+    //                 }
+    //             }
+    //         }
+    //         catch (\PDOException $e) {
+    //             if ($e->getCode() == "08001") {
+    //                 return response()->json(array('tipo' => -1, 'mensaje' => "No se puede conectar a la base de datos. Contactar al administrador."));
+    //             }
+    //         }
+    //     }
+    // }
+
     public function logout() {
-        // $url = "http://localhost:4200";
-        $url = 'https://plancarrera.fac.mil.co';
+        $url = "http://localhost:4200";
+        // $url = 'https://plancarrera.fac.mil.co';
 
         // recover sessionIndex and nameId from session
         $nameId = session('nameId');

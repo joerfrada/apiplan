@@ -16,14 +16,15 @@ class RutaCarrera extends Model
     protected $primaryKey = 'ruta_carrera_id';
 
     protected $fillable = [
-        'cuerpo_id,cuerpo,especialidad_id,especialidad,area_id,area,descripcion,tipo_categoria_id,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion'
+        'nombreruta,cuerpo_id,cuerpo,especialidad_id,especialidad,area_id,area,descripcion,tipo_categoria_id,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion'
     ];
 
     public function crud_ruta_carrera(Request $request, $evento) {
-        $db = DB::select("exec pr_crud_app_ruta_carrera ?,?,?,?,?,?,?,?,?,?,?,?,?,?",
+        $db = DB::select("exec pr_crud_app_ruta_carrera ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?",
                         [
                             $evento,
                             $request->input('ruta_carrera_id'),
+                            $request->input('nombreruta'),
                             $request->input('cuerpo_id'),
                             $request->input('cuerpo'),
                             $request->input('especialidad_id'),
