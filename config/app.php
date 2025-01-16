@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Aacotroneo\Saml2\Saml2ServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ])->toArray(),
 
     /*

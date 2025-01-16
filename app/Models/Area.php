@@ -58,4 +58,12 @@ class Area extends Model
                         ]);
         return $db;
     }
+
+    public function get_areas_by_categoria(Request $request) {
+        $db = DB::select("exec pr_get_app_areas_by_categoria ?",
+                        [
+                            $request->input('tipo_categoria_id')
+                        ]);
+        return $db;
+    }
 }

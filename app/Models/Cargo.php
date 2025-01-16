@@ -40,7 +40,7 @@ class Cargo extends Model
         $db = DB::select("exec pr_get_app_cargos ?,?",
                         [
                             $request->input('filtro'),
-                            $request->input('filtro') + 200
+                            $request->input('filtro') + 2000
                         ]);
         return $db;
     }
@@ -62,6 +62,11 @@ class Cargo extends Model
 
     public function get_listas_niveles() {
         $db = DB::select("exec pr_get_listas_niveles");
+        return $db;
+    }
+
+    public function eliminar_cargo(Request $request) {
+        $db = DB::select("exec pr_eliminar_cargo ?", array($request->input('cargo_id')));
         return $db;
     }
 }

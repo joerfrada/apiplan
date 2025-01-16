@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\TestContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::get('/reporte/perfilCargo/{id}', [PdfController::class, 'getInformes']);
 Route::get('info', function() {
     dd(phpinfo());
 });
+
+Route::get('test', [TestContoller::class, 'test']);

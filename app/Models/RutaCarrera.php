@@ -16,7 +16,7 @@ class RutaCarrera extends Model
     protected $primaryKey = 'ruta_carrera_id';
 
     protected $fillable = [
-        'nombreruta,cuerpo_id,cuerpo,especialidad_id,especialidad,area_id,area,descripcion,tipo_categoria_id,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion'
+        'cuerpo_id,cuerpo,especialidad_id,especialidad,area_id,area,descripcion,tipo_categoria_id,usuario_creador,fecha_creacion,usuario_modificador,fecha_modificacion,nombreruta'
     ];
 
     public function crud_ruta_carrera(Request $request, $evento) {
@@ -36,7 +36,7 @@ class RutaCarrera extends Model
                             $request->input('tipo_ruta_id'),
                             $request->input('activo') == true ? 'S' : 'N',
                             $request->input('usuario_creador'),
-                            $request->input('usuario_modificador')
+                            $request->input('usuario_modificador')                            
                         ]);
         return $db;
     }
@@ -120,6 +120,11 @@ class RutaCarrera extends Model
     public function get_width_by_rutas(Request $request) {
         $db = DB::select('exec pr_get_width_by_rutas ?', array($request->input('ruta_carrera_id')));
 
+        return $db;
+    }
+
+    public function eliminar_ruta_carrera(Request $request) {
+        $db = DB::select("exec pr_eliminar_ruta_carrera ?", array($request->input('ruta_carrera_id')));
         return $db;
     }
 }

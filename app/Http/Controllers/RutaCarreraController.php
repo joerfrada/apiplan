@@ -63,6 +63,24 @@ class RutaCarreraController extends Controller
         }
     }
 
+    public function eliminarRutaCarrera(Request $request) {
+        $model = new RutaCarrera();
+
+        try {
+            $db = $model->eliminar_ruta_carrera($request);
+
+            if ($db) {
+                $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
+                $response = json_decode($response);
+
+                return response()->json($response, 200);
+            }
+        }
+        catch (Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
+        }
+    }
+
     public function getRutaCarrerabyCargos(Request $request) {
         $model = new RutaCarrera();
 
@@ -152,6 +170,7 @@ class RutaCarreraController extends Controller
             $tmp['categoria'] = $row->categoria;
             $tmp['tipo_ruta_id'] = $row->tipo_ruta_id;
             $tmp['tipo_ruta'] = $row->tipo_ruta;
+            $tmp['nombreruta'] = $row->nombreruta;
             $tmp['rutas'] = $r_model->get_rutas_ruta_carrera_id($row->ruta_carrera_id);
 
             array_push($data, $tmp);
@@ -186,7 +205,6 @@ class RutaCarreraController extends Controller
                 $tmp_cargos['clase_cargo'] = $clase_cargos[$i];
                 $tmp_cargos['tipo_ruta'] = $cargo_rutas[$i];
                 $tmp_cargos['categoria'] = $item->categoria;
-
                 array_push($tmp['cargos'], $tmp_cargos);
             }
 
@@ -258,6 +276,28 @@ class RutaCarreraController extends Controller
         $model = new Cuerpo();
 
         $datos = $model->get_cuerpos_by_categoria($request);
+
+        $response = json_encode(array('result' => $datos, 'tipo' => 0), JSON_NUMERIC_CHECK);
+        $response = json_decode($response);
+
+        return response()->json($response, 200);
+    }
+
+    public function getEspecialidadesByCategoria(Request $request) {
+        $model = new Especialidad();
+
+        $datos = $model->get_especialidades_by_categoria($request);
+
+        $response = json_encode(array('result' => $datos, 'tipo' => 0), JSON_NUMERIC_CHECK);
+        $response = json_decode($response);
+
+        return response()->json($response, 200);
+    }
+
+    public function getAreasByCategoria(Request $request) {
+        $model = new Area();
+
+        $datos = $model->get_areas_by_categoria($request);
 
         $response = json_encode(array('result' => $datos, 'tipo' => 0), JSON_NUMERIC_CHECK);
         $response = json_decode($response);

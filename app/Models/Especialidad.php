@@ -56,4 +56,12 @@ class Especialidad extends Model
                         ]);
         return $db;
     }
+
+    public function get_especialidades_by_categoria(Request $request) {
+        $db = DB::select("exec pr_get_app_especialidades_by_categoria ?",
+                        [
+                            $request->input('tipo_categoria_id')
+                        ]);
+        return $db;
+    }
 }

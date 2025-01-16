@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use PDO;
 use PDOException;
 
-class Usuario extends Authenticatable
+class Usuario extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -23,6 +24,14 @@ class Usuario extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims() {
+        return [];
+    }
 
     public function crud_usuarios(Request $request, $evento) {
         $db = DB::select("exec pr_crud_app_usuarios ?,?,?,?,?,?,?,?",

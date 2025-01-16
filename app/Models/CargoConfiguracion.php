@@ -20,7 +20,7 @@ class CargoConfiguracion extends Model
     ];
 
     public function crud_cargos_configuracion(Request $request, $evento) {
-        $db = DB::select("exec pr_crud_app_cargos_configuracion ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?",
+        $db = DB::select("exec pr_crud_app_cargos_configuracion ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?",
                         [
                             $evento,
                             $request->input('cargo_configuracion_id'),
@@ -41,6 +41,7 @@ class CargoConfiguracion extends Model
                             $request->input('competencia'),
                             $request->input('competencia_id'),
                             $request->input('observaciones'),
+                            $request->input('clasificacion_id'),
                             $request->input('usuario_creador'),
                             $request->input('usuario_modificador')
                         ]);

@@ -89,6 +89,24 @@ class CargoController extends Controller
         }
     }
 
+    public function eliminarCargos(Request $request) {
+        $model = new Cargo();
+
+        try {
+            $db = $model->eliminar_cargo($request);
+
+            if ($db) {
+                $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'tipo' => 0), JSON_NUMERIC_CHECK);
+                $response = json_decode($response);
+
+                return response()->json($response, 200);
+            }
+        }
+        catch (Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
+        }
+    }
+
     public function getDetalleCargos(Request $request) {
         $model = new Cargo();
 
@@ -403,5 +421,39 @@ class CargoController extends Controller
         $response = json_decode($response);
 
         return response()->json($response, 200);
+    }
+
+    public function consultarRutasPorCargo($cargo_id) {
+        $rutasAsociadas = DB::table('tb_app_rutas')
+            ->where('cargo_id', $cargo_id)
+            ->pluck('ruta_carrera_id');
+    
+        return response()->json($rutasAsociadas, 200);
+    }
+
+    public function consultarCargosPorCargo($cargo_previo_id) {
+        $rutasAsociadas = DB::table('vw_app_cargos_experiencias')
+            ->where('cargo_previo_id', $cargo_previo_id)
+            ->pluck('cargo_id', 'grado');
+
+        $resultadoOrdenado = [];
+        foreach ($rutasAsociadas as $grado => $cargo_id) {
+            $resultadoOrdenado[$cargo_id] = $grado;
+        }
+        
+        return response()->json($resultadoOrdenado, 200);
+    }
+
+    public function consultarUbicacionesPorCargo($cargo_id) {
+        $ubicacionAsociadas = DB::table("vw_app_ubicacion_cargos")
+            ->where('cargo_jefe_inmediato_id', $cargo_id)
+            ->pluck('cargo_id', 'grado');
+
+        $resultadoOrdenado = [];
+        foreach ($ubicacionAsociadas as $grado => $cargo_id) {
+            $resultadoOrdenado[$cargo_id] = $grado;
+        }
+
+        return response()->json($resultadoOrdenado, 200);
     }
 }

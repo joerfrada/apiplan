@@ -85,7 +85,7 @@ class ExcelRutaCarreraController extends Controller implements FromQuery, WithHe
             'L' => 12,
             'M' => 12,
             'N' => 15,
-            'O' => 15,
+            'O' => 15
         ];
     }
 
@@ -95,7 +95,7 @@ class ExcelRutaCarreraController extends Controller implements FromQuery, WithHe
             'font' => [
                 'bold' => true,
                 'size' => 12, 
-            ],
+            ]
         ]);
     
         foreach (range('A', 'O') as $column) {
@@ -111,7 +111,7 @@ class ExcelRutaCarreraController extends Controller implements FromQuery, WithHe
                 if ($cellValue === null || $cellValue === '') {
                     $sheet->setCellValue($column . $row, ' ');
                 }
-            }  
+            }
         }
     
         $sheet->setAutoFilter("A1:O$lastRow");
